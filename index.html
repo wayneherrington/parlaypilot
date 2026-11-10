@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ParlayPilot — Every parlay. One deck. Cash out on point.</title>
 <meta name="description" content="ParlayPilot holds all your parlays from every app in one flip-through deck, with live game feeds on every leg and the exact fair cash-out number on every ticket. $1.25 one time — no subscription.">
-<meta name="theme-color" content="#07090f">
+<meta name="theme-color" content="#020805">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <meta name="mobile-web-app-capable" content="yes">
@@ -17,7 +17,7 @@
   --bg:#020805; --panel:#05130a; --panel2:#0a2013; --line:rgba(110,255,170,.16);
   --gold:#34f27b; --gold2:#a9ffc7; --green:#2eff7a; --red:#ff4d5e; --blue:#4da3ff;
   --cyan:#00ffa9; --violet:#8dff4a;
-  --txt:#f2f6ff; --mut:#a7b1cc; --mut2:#6b7390;
+  --txt:#f2f6ff; --mut:#a7b1cc;
   --r:18px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -47,9 +47,9 @@ header{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backd
 .logo .mark{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--gold2),var(--gold) 45%,#0d7a38);display:grid;place-items:center;font-size:18px;box-shadow:0 0 26px rgba(52,242,123,.55),inset 0 1px 0 rgba(255,255,255,.5);color:#02140a}
 .logo span{background:linear-gradient(90deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hbar nav{margin-left:auto;display:flex;gap:18px;font-size:13px;color:var(--mut);letter-spacing:.8px;text-transform:uppercase}
-.hbar nav a{text-decoration:none}
+.hbar nav a{text-decoration:none;padding:8px 2px}
 .hbar nav a:hover{color:var(--cyan)}
-.btn{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--gold2),var(--gold) 55%,#1ec95e);color:#02140a;font-weight:900;letter-spacing:.4px;border:none;border-radius:999px;padding:11px 20px;font-size:14px;cursor:pointer;box-shadow:0 0 0 1px rgba(255,224,138,.5),0 8px 28px rgba(52,242,123,.40);transition:transform .15s ease,box-shadow .15s ease}
+.btn{display:inline-block;text-decoration:none;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--gold2),var(--gold) 55%,#1ec95e);color:#02140a;font-weight:900;letter-spacing:.4px;border:none;border-radius:999px;padding:11px 20px;font-size:14px;cursor:pointer;box-shadow:0 0 0 1px rgba(255,224,138,.5),0 8px 28px rgba(52,242,123,.40);transition:transform .15s ease,box-shadow .15s ease}
 .btn::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.6s ease-in-out infinite}
 @keyframes shine{0%,55%{left:-80%}85%,100%{left:130%}}
 .btn:active{transform:scale(.97)}
@@ -96,7 +96,7 @@ header{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backd
 .legs li{position:relative;display:flex;align-items:center;gap:10px;background:rgba(110,255,170,.04);border:1px solid var(--line);border-radius:12px;padding:11px 12px 11px 16px;font-size:14px;overflow:hidden}
 .legs li::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--cyan),var(--violet));opacity:.75}
 .legs .feed{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.7px;white-space:nowrap}
-.feed.pre{color:var(--mut)} .feed.live{color:#fff;background:var(--red);padding:3px 8px;border-radius:999px;animation:pulse 1.4s infinite;box-shadow:0 0 14px rgba(255,77,94,.7)}
+.feed.pre{color:var(--mut)} .feed.live{color:#fff;background:#d61f36;padding:3px 8px;border-radius:999px;animation:pulse 1.4s infinite;box-shadow:0 0 14px rgba(255,77,94,.7)}
 .feed.won{color:var(--green);text-shadow:0 0 10px rgba(46,255,122,.6)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
 .guide{margin-top:14px;font-size:14px;color:var(--gold2);background:linear-gradient(90deg,rgba(52,242,123,.10),rgba(52,242,123,.04));border:1px solid rgba(52,242,123,.3);border-radius:12px;padding:11px 13px}
@@ -162,8 +162,8 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:22px;color:v
     <h1>All your bets.<br><span class="g">One money deck.</span></h1>
     <p>ParlayPilot pulls every parlay you place — from every app — into windows you flip through like a pro. A live feed rides on every leg, and the exact fair cash-out number sits on every ticket, so you sell on point, never on panic.</p>
     <div>
-      <a href="#deck"><button class="btn">See the live deck</button></a>
-      <a href="#price"><button class="btn ghost" style="margin-left:8px">$1.25 one time — that's it</button></a>
+      <a href="#deck" class="btn">See the live deck</a>
+      <a href="#price" class="btn ghost" style="margin-left:8px">$1.25 one time — that's it</a>
     </div>
     <div class="stats">
       <div class="stat"><b class="gold" id="statRiding">$0.00</b><small>Riding today</small></div>
@@ -331,27 +331,29 @@ function saveUser(list){ try{ localStorage.setItem(KEY, JSON.stringify(list.slic
 var tickets=load(), idx=0;
 var track=document.getElementById("track"), pips=document.getElementById("pips");
 function money(n){ return n==null? "—" : "$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
 function render(){
   track.innerHTML=""; pips.innerHTML="";
   if(tickets.length===0){
     var empty=document.createElement("div"); empty.className="card";
-    empty.innerHTML='<div class="cardbody" style="text-align:center;padding:44px 22px"><h3>No open tickets right now</h3><div class="sub">The Nov 8 book settled and moved to the Archive below. Add a ticket or connect an account and it lands here.</div><a href="#add"><button class="btn">Add a ticket</button></a></div>';
+    empty.innerHTML='<div class="cardbody" style="text-align:center;padding:44px 22px"><h3>No open tickets right now</h3><div class="sub">The Nov 8 book settled and moved to the Archive below. Add a ticket or connect an account and it lands here.</div><a href="#add" class="btn">Add a ticket</a></div>';
     track.appendChild(empty);
   } else {
     tickets.forEach(function(t,i){
       var card=document.createElement("div"); card.className="card";
-      var legs=t.legs.map(function(l){
-        var cls = l[1].indexOf("WON")===0 ? "won" : (l[1].indexOf("LIVE")===0 ? "live" : "pre");
-        return '<li><span>'+l[0]+'</span><span class="feed '+cls+'">'+l[1]+'</span></li>';
+      var legs=(Array.isArray(t.legs)?t.legs:[]).map(function(l){
+        var txt=Array.isArray(l)?l[0]:l, st=Array.isArray(l)&&l[1]!=null?String(l[1]):"";
+        var cls = st.indexOf("WON")===0 ? "won" : (st.indexOf("LIVE")===0 ? "live" : "pre");
+        return '<li><span>'+esc(txt)+'</span><span class="feed '+cls+'">'+esc(st)+'</span></li>';
       }).join("");
       card.innerHTML=
-        '<div class="cardtop"><div class="dots"><i></i><i></i><i></i></div><span style="color:var(--mut);font-size:12px">'+(i+1)+' / '+tickets.length+'</span><span class="plat">'+t.plat+'</span></div>'+
-        '<div class="cardbody"><h3>'+t.name+'</h3><div class="sub">'+(t.note||"")+'</div>'+
+        '<div class="cardtop"><div class="dots"><i></i><i></i><i></i></div><span style="color:var(--mut);font-size:12px">'+(i+1)+' / '+tickets.length+'</span><span class="plat">'+esc(t.plat)+'</span></div>'+
+        '<div class="cardbody"><h3>'+esc(t.name)+'</h3><div class="sub">'+esc(t.note||"")+'</div>'+
         '<div class="money"><div class="m"><small>Stake</small><b>'+money(t.stake)+'</b></div>'+
         '<div class="m"><small>Pays if it hits</small><b class="gold">'+money(t.payout)+'</b></div>'+
         '<div class="m"><small>Fair cash-out now</small><b class="green">'+(t.fair==null?"Opens with the games":money(t.fair))+'</b></div></div>'+
         '<ul class="legs">'+legs+'</ul>'+
-        (t.guide? '<div class="guide">'+t.guide+'</div>':"")+
+        (t.guide? '<div class="guide">'+esc(t.guide)+'</div>':"")+
         '</div>';
       track.appendChild(card);
       var p=document.createElement("i"); if(i===idx)p.className="on"; pips.appendChild(p);
@@ -372,14 +374,14 @@ function renderArchive(){
   box.innerHTML="";
   ARCHIVE.forEach(function(t){
     var card=document.createElement("div"); card.className="card"; card.style.marginBottom="12px"; card.style.opacity=".92";
-    var legs=t.legs.map(function(l){ return '<li><span>'+l[0]+'</span><span class="feed pre">SETTLED</span></li>'; }).join("");
+    var legs=(Array.isArray(t.legs)?t.legs:[]).map(function(l){ return '<li><span>'+esc(Array.isArray(l)?l[0]:l)+'</span><span class="feed pre">SETTLED</span></li>'; }).join("");
     card.innerHTML=
-      '<div class="cardtop"><div class="dots"><i></i><i></i><i></i></div><span style="color:var(--mut);font-size:12px">Settled · Sun Nov 8, 2026</span><span class="plat">'+t.plat+'</span></div>'+
-      '<div class="cardbody"><h3>'+t.name+'</h3><div class="sub">'+(t.note||"")+'</div>'+
+      '<div class="cardtop"><div class="dots"><i></i><i></i><i></i></div><span style="color:var(--mut);font-size:12px">Settled · Sun Nov 8, 2026</span><span class="plat">'+esc(t.plat)+'</span></div>'+
+      '<div class="cardbody"><h3>'+esc(t.name)+'</h3><div class="sub">'+esc(t.note||"")+'</div>'+
       '<div class="money"><div class="m"><small>Stake</small><b>'+money(t.stake)+'</b></div>'+
       '<div class="m"><small>Paid if it hit</small><b class="gold">'+money(t.payout)+'</b></div></div>'+
       '<ul class="legs">'+legs+'</ul>'+
-      (t.guide? '<div class="guide">'+t.guide+'</div>':"")+
+      (t.guide? '<div class="guide">'+esc(t.guide)+'</div>':"")+
       '</div>';
     box.appendChild(card);
   });
@@ -393,7 +395,7 @@ function go(n,skip){
 }
 document.getElementById("prev").onclick=function(){ go(idx-1); };
 document.getElementById("next").onclick=function(){ go(idx+1); };
-document.addEventListener("keydown",function(e){ if(e.key==="ArrowLeft")go(idx-1); if(e.key==="ArrowRight")go(idx+1); });
+document.addEventListener("keydown",function(e){ var tg=e.target; if(tg&&(tg.tagName==="INPUT"||tg.tagName==="TEXTAREA"||tg.tagName==="SELECT"||tg.isContentEditable))return; if(e.key==="ArrowLeft")go(idx-1); if(e.key==="ArrowRight")go(idx+1); });
 var sx=null;
 track.addEventListener("touchstart",function(e){ sx=e.touches[0].clientX; },{passive:true});
 track.addEventListener("touchend",function(e){ if(sx==null)return; var dx=e.changedTouches[0].clientX-sx; if(dx<-40)go(idx+1); if(dx>40)go(idx-1); sx=null; },{passive:true});
