@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ParlayPilot — Every parlay. One deck. Cash out on point.</title>
+<meta name="description" content="ParlayPilot holds all your parlays from every app in one flip-through deck, with live game feeds on every leg and the exact fair cash-out number on every ticket. $1.99/month.">
+<meta name="theme-color" content="#07090f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ParlayPilot">
+<style>
+:root{
+  --bg:#020805; --panel:#05130a; --panel2:#0a2013; --line:rgba(110,255,170,.16);
+  --gold:#34f27b; --gold2:#a9ffc7; --green:#2eff7a; --red:#ff4d5e; --blue:#4da3ff;
+  --cyan:#00ffa9; --violet:#8dff4a;
+  --txt:#f2f6ff; --mut:#a7b1cc; --mut2:#6b7390;
+  --r:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;min-height:100vh;overflow-x:hidden}
+/* animated space backdrop — transform/opacity only, stays smooth */
+.bgfx{position:fixed;inset:0;z-index:-1;overflow:hidden;background:
+  radial-gradient(1100px 550px at 85% -10%,rgba(52,242,123,.13),transparent 60%),
+  radial-gradient(900px 600px at -10% 30%,rgba(0,255,169,.10),transparent 60%),
+  radial-gradient(1000px 700px at 110% 80%,rgba(141,255,74,.12),transparent 60%),var(--bg)}
+.bgfx::before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(0deg,rgba(110,255,170,.05) 0 1px,transparent 1px 56px),
+  repeating-linear-gradient(90deg,rgba(110,255,170,.05) 0 1px,transparent 1px 56px);
+  -webkit-mask-image:radial-gradient(80% 60% at 50% 0%,#000 30%,transparent 100%);mask-image:radial-gradient(80% 60% at 50% 0%,#000 30%,transparent 100%)}
+.bgfx i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;will-change:transform}
+.bgfx i:nth-child(1){width:420px;height:420px;left:-120px;top:-80px;background:rgba(0,255,169,.35);animation:drift1 26s ease-in-out infinite alternate}
+.bgfx i:nth-child(2){width:380px;height:380px;right:-100px;top:12%;background:rgba(52,242,123,.30);animation:drift2 32s ease-in-out infinite alternate}
+.bgfx i:nth-child(3){width:460px;height:460px;left:38%;bottom:-220px;background:rgba(141,255,74,.30);animation:drift1 38s ease-in-out infinite alternate-reverse}
+@keyframes drift1{from{transform:translate(0,0) scale(1)}to{transform:translate(70px,40px) scale(1.15)}}
+@keyframes drift2{from{transform:translate(0,0) scale(1.1)}to{transform:translate(-60px,60px) scale(.95)}}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px 90px}
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(2,8,5,.78);border-bottom:1px solid var(--line)}
+.hbar{max-width:1080px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:1.5px;font-size:20px;text-transform:uppercase}
+.logo .mark{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--gold2),var(--gold) 45%,#0d7a38);display:grid;place-items:center;font-size:18px;box-shadow:0 0 26px rgba(52,242,123,.55),inset 0 1px 0 rgba(255,255,255,.5);color:#02140a}
+.logo span{background:linear-gradient(90deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hbar nav{margin-left:auto;display:flex;gap:18px;font-size:13px;color:var(--mut);letter-spacing:.8px;text-transform:uppercase}
+.hbar nav a{text-decoration:none}
+.hbar nav a:hover{color:var(--cyan)}
+.btn{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--gold2),var(--gold) 55%,#1ec95e);color:#02140a;font-weight:900;letter-spacing:.4px;border:none;border-radius:999px;padding:11px 20px;font-size:14px;cursor:pointer;box-shadow:0 0 0 1px rgba(255,224,138,.5),0 8px 28px rgba(52,242,123,.40);transition:transform .15s ease,box-shadow .15s ease}
+.btn::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.6s ease-in-out infinite}
+@keyframes shine{0%,55%{left:-80%}85%,100%{left:130%}}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:rgba(110,255,170,.06);color:var(--txt);border:1px solid var(--line);box-shadow:none;backdrop-filter:blur(8px)}
+.btn.ghost::after{display:none}
+/* ---------- hero ---------- */
+.hero{padding:58px 0 8px;text-align:center}
+.kicker{display:inline-flex;align-items:center;gap:10px;color:var(--cyan);font-weight:800;letter-spacing:3.5px;font-size:12px;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,169,.6)}
+.kicker::before,.kicker::after{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan));display:inline-block}
+.kicker::after{background:linear-gradient(90deg,var(--cyan),transparent)}
+.hero h1{font-size:clamp(40px,7.5vw,68px);line-height:1.02;font-weight:950;margin:16px 0 14px;letter-spacing:-.5px;text-shadow:0 0 34px rgba(60,255,140,.28)}
+.hero h1 .g{background:linear-gradient(92deg,var(--gold2) 5%,var(--gold) 40%,#c8ff5e 75%,var(--cyan) 115%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(52,242,123,.35))}
+.hero p{color:var(--mut);font-size:clamp(15px,2.4vw,19px);max-width:640px;margin:0 auto 22px;line-height:1.55}
+.stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:28px 0 6px}
+.stat{position:relative;background:linear-gradient(180deg,rgba(10,52,27,.55),rgba(4,18,10,.85));border:1px solid var(--line);border-radius:var(--r);padding:18px 22px;min-width:158px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 14px 34px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.08)}
+.stat::before{content:"";position:absolute;top:0;left:14px;right:14px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--cyan),var(--gold),var(--violet));box-shadow:0 0 12px rgba(52,242,123,.7)}
+.stat b{display:block;font-size:28px;letter-spacing:.3px}
+.stat b.gold{color:var(--gold);text-shadow:0 0 18px rgba(52,242,123,.55)} .stat b.green{color:var(--green);text-shadow:0 0 18px rgba(46,255,122,.5)}
+.stat small{color:var(--mut);font-size:11px;letter-spacing:1.4px;text-transform:uppercase}
+/* ---------- deck ---------- */
+.deckhead{display:flex;align-items:baseline;gap:12px;margin:46px 0 6px}
+.deckhead h2{font-size:27px;font-weight:900;letter-spacing:.3px}
+.deckhead h2::after{content:"";display:block;width:64px;height:3px;margin-top:7px;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--cyan));box-shadow:0 0 10px rgba(0,255,169,.6)}
+.deckhead p{color:var(--mut);font-size:14px}
+.deck{position:relative;margin-top:16px}
+.viewport{overflow:hidden;border-radius:26px;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(110,255,170,.10),0 0 44px rgba(0,255,169,.07)}
+.track{display:flex;transition:transform .5s cubic-bezier(.22,.9,.26,1);will-change:transform}
+.card{position:relative;flex:0 0 100%;background:linear-gradient(180deg,#0a2113,#06150c 60%,#04100a);border:1px solid transparent;border-radius:26px;padding:0;overflow:hidden;background-clip:padding-box}
+.card::before{content:"";position:absolute;inset:0;border-radius:26px;padding:1px;background:linear-gradient(140deg,rgba(52,242,123,.65),rgba(0,255,169,.35) 45%,rgba(141,255,74,.5));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.cardtop{display:flex;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(52,242,123,.06),rgba(0,255,169,.05),rgba(141,255,74,.06))}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#14402a;display:block}
+.dots i:first-child{background:var(--red);box-shadow:0 0 8px rgba(255,77,94,.8)}.dots i:nth-child(2){background:var(--gold);box-shadow:0 0 8px rgba(52,242,123,.8)}.dots i:nth-child(3){background:var(--green);box-shadow:0 0 8px rgba(46,255,122,.8)}
+.plat{margin-left:auto;font-size:12px;font-weight:800;letter-spacing:1.6px;color:var(--gold2);border:1px solid rgba(52,242,123,.45);background:rgba(52,242,123,.07);padding:5px 11px;border-radius:999px;text-transform:uppercase;box-shadow:0 0 14px rgba(52,242,123,.18)}
+.cardbody{padding:22px 18px 24px}
+.cardbody h3{font-size:22px;font-weight:900;margin-bottom:4px;letter-spacing:.2px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:16px}
+.money{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.money .m{flex:1;min-width:120px;background:rgba(110,255,170,.05);border:1px solid var(--line);border-radius:14px;padding:13px 15px}
+.money .m.fair{border-color:rgba(46,255,122,.5);background:rgba(46,255,122,.06);box-shadow:0 0 22px rgba(46,255,122,.14),inset 0 0 18px rgba(46,255,122,.05)}
+.money .m small{display:block;color:var(--mut);font-size:11px;letter-spacing:1.1px;text-transform:uppercase;margin-bottom:4px}
+.money .m b{font-size:22px}
+.money .m b.gold{color:var(--gold);text-shadow:0 0 14px rgba(52,242,123,.45)} .money .m b.green{color:var(--green);text-shadow:0 0 14px rgba(46,255,122,.45)}
+.legs{list-style:none;display:grid;gap:8px}
+.legs li{position:relative;display:flex;align-items:center;gap:10px;background:rgba(110,255,170,.04);border:1px solid var(--line);border-radius:12px;padding:11px 12px 11px 16px;font-size:14px;overflow:hidden}
+.legs li::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--cyan),var(--violet));opacity:.75}
+.legs .feed{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.7px;white-space:nowrap}
+.feed.pre{color:var(--mut)} .feed.live{color:#fff;background:var(--red);padding:3px 8px;border-radius:999px;animation:pulse 1.4s infinite;box-shadow:0 0 14px rgba(255,77,94,.7)}
+.feed.won{color:var(--green);text-shadow:0 0 10px rgba(46,255,122,.6)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+.guide{margin-top:14px;font-size:14px;color:var(--gold2);background:linear-gradient(90deg,rgba(52,242,123,.10),rgba(52,242,123,.04));border:1px solid rgba(52,242,123,.3);border-radius:12px;padding:11px 13px}
+.nav{display:flex;align-items:center;gap:14px;justify-content:center;margin-top:18px}
+.nav button{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,255,169,.4);background:linear-gradient(180deg,rgba(0,255,169,.12),rgba(4,18,10,.9));color:var(--txt);font-size:19px;cursor:pointer;box-shadow:0 0 16px rgba(0,255,169,.18);transition:transform .12s ease}
+.nav button:active{transform:scale(.93)}
+.pips{display:flex;gap:7px}
+.pips i{width:8px;height:8px;border-radius:50%;background:#14402a;display:block;transition:all .3s}
+.pips i.on{background:linear-gradient(90deg,var(--gold),var(--cyan));width:24px;border-radius:99px;box-shadow:0 0 10px rgba(52,242,123,.6)}
+.honest{color:var(--mut);font-size:12px;text-align:center;margin-top:10px;line-height:1.5}
+/* ---------- sections ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:16px}
+.feat{background:linear-gradient(180deg,rgba(10,52,27,.45),rgba(4,18,10,.9));border:1px solid var(--line);border-radius:var(--r);padding:22px;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.feat:hover{transform:translateY(-4px);border-color:rgba(0,255,169,.45);box-shadow:0 16px 36px rgba(0,0,0,.45),0 0 24px rgba(0,255,169,.12)}
+.feat .ic{font-size:27px;margin-bottom:10px;filter:drop-shadow(0 0 10px rgba(52,242,123,.4))}
+.feat h3{font-size:17px;margin-bottom:6px}
+.feat p{color:var(--mut);font-size:14px;line-height:1.55}
+section{margin-top:54px}
+section h2{font-size:27px;font-weight:900;margin-bottom:6px;letter-spacing:.3px}
+section .lead{color:var(--mut);font-size:15px;line-height:1.6;max-width:680px}
+.conn{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.conn .c{background:linear-gradient(180deg,rgba(10,52,27,.4),rgba(4,18,10,.9));border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;align-items:center;gap:12px;font-weight:700}
+.conn .c small{display:block;color:var(--mut);font-weight:400;font-size:12px;margin-top:2px}
+.tag{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.6px;padding:4px 9px;border-radius:999px;background:rgba(46,255,122,.14);color:var(--green);white-space:nowrap;box-shadow:0 0 12px rgba(46,255,122,.15)}
+.tag.soon{background:rgba(52,242,123,.13);color:var(--gold);box-shadow:0 0 12px rgba(52,242,123,.15)}
+/* add ticket */
+form.add{background:linear-gradient(180deg,rgba(10,52,27,.45),rgba(4,18,10,.92));border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:16px;display:grid;gap:12px}
+form.add label{font-size:13px;color:var(--mut);display:grid;gap:6px}
+form.add input,form.add textarea{background:#04120a;border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:11px 12px;font-size:15px;font-family:inherit;width:100%}
+form.add input:focus,form.add textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,255,169,.18)}
+form.add .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){form.add .row{grid-template-columns:1fr}.hbar nav{display:none}}
+/* pricing */
+.price{position:relative;overflow:hidden;margin-top:16px;background:linear-gradient(160deg,rgba(52,242,123,.18),rgba(0,255,169,.06) 55%,rgba(141,255,74,.10)),var(--panel);border:1px solid rgba(52,242,123,.5);border-radius:26px;padding:34px 24px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.5),0 0 44px rgba(52,242,123,.12)}
+.price b{font-size:54px;background:linear-gradient(92deg,var(--gold2),var(--gold) 60%,#c8ff5e);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 16px rgba(52,242,123,.35))}
+.price p{color:var(--mut);margin:8px 0 18px;line-height:1.6}
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:22px;color:var(--mut);font-size:13px;line-height:1.7;text-align:center}
+.legalbox{background:rgba(4,18,10,.9);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:16px}
+.legalbox h3{font-size:16px;margin:16px 0 6px;color:var(--gold2)}
+.legalbox h3:first-child{margin-top:0}
+.legalbox p,.legalbox li{color:var(--mut);font-size:13.5px;line-height:1.65}
+.legalbox ul{padding-left:20px;display:grid;gap:4px}
+.shield{display:flex;gap:12px;align-items:flex-start;background:rgba(46,255,122,.07);border:1px solid rgba(46,255,122,.3);border-radius:var(--r);padding:16px 18px;margin-top:16px}
+.shield p{color:var(--mut);font-size:14px;line-height:1.6}
+.shield b{color:var(--txt)}
+.install{display:none;margin-top:14px}
+@media (prefers-reduced-motion: reduce){.bgfx i,.btn::after,.feed.live{animation:none}.track{transition:none}}
+</style>
+</head>
+<body>
+<div class="bgfx" aria-hidden="true"><i></i><i></i><i></i></div>
+<header>
+  <div class="hbar">
+    <div class="logo"><div class="mark">✈</div>Parlay<span>Pilot</span></div>
+    <nav><a href="#deck">My Deck</a><a href="#archive">Archive</a><a href="#connect">Connect</a><a href="#add">Add a ticket</a><a href="#price">Pricing</a><a href="#legal">Terms</a></nav>
+    <button class="btn" id="installBtnTop" style="margin-left:12px">Install the app</button>
+  </div>
+</header>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">Every parlay · Every app · One deck</div>
+    <h1>All your bets.<br><span class="g">One money deck.</span></h1>
+    <p>ParlayPilot pulls every parlay you place — from every app — into windows you flip through like a pro. A live feed rides on every leg, and the exact fair cash-out number sits on every ticket, so you sell on point, never on panic.</p>
+    <div>
+      <a href="#deck"><button class="btn">See the live deck</button></a>
+      <a href="#price"><button class="btn ghost" style="margin-left:8px">$1.99/month — that's it</button></a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b class="gold" id="statRiding">$0.00</b><small>Riding today</small></div>
+      <div class="stat"><b id="statTickets">0</b><small>Open tickets</small></div>
+      <div class="stat"><b class="green" id="statMax">$0.00</b><small>Known max if it all hits</small></div>
+      <div class="stat"><b id="statSettled">8</b><small>Settled · archived</small></div>
+    </div>
+    <p class="honest">Wayne's Sunday book from Nov 8, 2026 settled and moved to the Archive below — the live deck starts fresh.<br>Totals are labeled honestly: max shown is for tickets with a payout on file.</p>
+  </div>
+
+  <div class="deckhead" id="deck"><h2>Live deck</h2><p>Only open tickets live here. Settled ones move to the Archive — flip through your windows, swipe, tap the arrows, or use ← → keys.</p></div>
+  <div class="deck">
+    <div class="viewport"><div class="track" id="track"></div></div>
+    <div class="nav">
+      <button id="prev" aria-label="Previous ticket">‹</button>
+      <div class="pips" id="pips"></div>
+      <button id="next" aria-label="Next ticket">›</button>
+    </div>
+    <p class="honest" id="deckNote"></p>
+  </div>
+
+  <div class="deckhead" id="archive"><h2>Archive</h2><p>Settled tickets — kept for the record, out of the live deck.</p></div>
+  <p class="honest" id="archiveNote"></p>
+  <div id="archiveList" style="margin-top:16px"></div>
+
+  <section>
+    <h2>Why bettors need this</h2>
+    <p class="lead">Your tickets live in five different apps. One's dying, one's cooking, and the cash-out button never tells you the truth. ParlayPilot is the one place that does.</p>
+    <div class="grid">
+      <div class="feat"><div class="ic">🪟</div><h3>Flip-through windows</h3><p>Every ticket is its own window. Flip through them like flipping windows on a laptop — fast, smooth, never janky. No old-school scroll list.</p></div>
+      <div class="feat"><div class="ic">📡</div><h3>Live feed on every leg</h3><p>Each leg carries its own live game feed — score, clock, status — pinged as the game moves, so you always know what's alive and what isn't.</p></div>
+      <div class="feat"><div class="ic">💰</div><h3>Exact fair cash-out</h3><p>Every ticket shows what it's actually worth right now — not what the app wants you to take. Sell when the offer beats fair value. Hold when it doesn't.</p></div>
+      <div class="feat"><div class="ic">⚡</div><h3>Fast or it fails</h3><p>Nothing slow, nothing laggy. ParlayPilot loads instantly and flips smooth, because a tracker that's late is a tracker that's useless.</p></div>
+    </div>
+  </section>
+
+  <section id="connect">
+    <h2>Connects to where you bet</h2>
+    <p class="lead">Connect an account and your parlays are read in automatically — no typing tickets by hand. Where a platform has an API, ParlayPilot reads it direct. Where it doesn't, your bet-confirmation emails and receipt screenshots import the same way.</p>
+    <div class="conn">
+      <div class="c">🎯 Kalshi<small>Direct read via API</small><span class="tag">API</span></div>
+      <div class="c">🔮 Polymarket<small>Direct read via API</small><span class="tag">API</span></div>
+      <div class="c">👑 DraftKings<small>Email / receipt import</small><span class="tag soon">IMPORT</span></div>
+      <div class="c">🏟️ Courtside<small>Email / receipt import</small><span class="tag soon">IMPORT</span></div>
+      <div class="c">🐶 Underdog<small>Email / receipt import</small><span class="tag soon">IMPORT</span></div>
+      <div class="c">🎸 Hard Rock Bet<small>Email / receipt import</small><span class="tag soon">IMPORT</span></div>
+    </div>
+  </section>
+
+  <section id="add">
+    <h2>Add a ticket</h2>
+    <p class="lead">Try the deck yourself — add a parlay and it lands in your windows instantly. Saved on this device only.</p>
+    <form class="add" id="addForm">
+      <div class="row">
+        <label>Ticket name<input required id="fName" placeholder="Sunday 6-pick"></label>
+        <label>App / platform<input required id="fPlat" placeholder="DraftKings"></label>
+      </div>
+      <div class="row">
+        <label>Stake ($)<input required id="fStake" type="number" min="0" step="0.01" placeholder="10.00"></label>
+        <label>Payout if it hits ($)<input id="fPay" type="number" min="0" step="0.01" placeholder="107.00"></label>
+      </div>
+      <label>Legs — one per line<textarea required id="fLegs" rows="4" placeholder="Chiefs moneyline — Jets @ Chiefs, 1:00 PM&#10;Gibbs anytime TD — Lions @ Dolphins, 1:00 PM"></textarea></label>
+      <button class="btn" type="submit" style="justify-self:start">Add it to my deck</button>
+    </form>
+  </section>
+
+  <section id="price">
+    <h2>One price. No games.</h2>
+    <div class="price">
+      <b>$1.99</b><span style="font-size:20px;color:var(--mut)"> / month</span>
+      <p>Every window, every live feed, every fair cash-out number.<br>Cheaper than one bad panic sell. Cancel anytime.</p>
+      <button class="btn" id="joinBtn">Join ParlayPilot</button>
+      <p id="joinNote" style="margin-top:12px;font-size:13px"></p>
+    </div>
+  </section>
+
+  <section id="legal">
+    <h2>The shield</h2>
+    <p class="lead">Plain-English version: ParlayPilot shows you <b>your own</b> bets. It never places a bet, never touches your money, and never promises you'll win. The full terms below are the legal version of the same thing — by using ParlayPilot, you agree to them.</p>
+    <div class="shield"><div style="font-size:26px">🛡️</div><p><b>Not a sportsbook. Not a bookie. Not a tipster.</b> ParlayPilot is a tracking and information tool only. Every bet you place is your own decision, on someone else's app, at your own risk.</p></div>
+    <div class="legalbox">
+      <h3>1. What ParlayPilot is — and is not</h3>
+      <ul>
+        <li>ParlayPilot displays and organizes wagers <b>you</b> placed with third-party sportsbooks and apps. It does not accept, place, book, broker, or settle any wager, and it never holds user funds.</li>
+        <li>ParlayPilot is not affiliated with, endorsed by, or connected to any sportsbook, league, team, or the platforms named in the app (including Kalshi, Polymarket, DraftKings, Courtside, Underdog, and Hard Rock Bet). All names and marks belong to their owners.</li>
+        <li>Nothing in ParlayPilot is financial, investment, or betting advice. No pick, number, feed, or feature is a recommendation to place any bet.</li>
+      </ul>
+      <h3>2. No guarantees — numbers can be wrong</h3>
+      <ul>
+        <li>Scores, feeds, prices, and fair cash-out estimates are provided "as is," from third-party sources, and may be delayed, incomplete, or incorrect. A fair cash-out estimate is a mathematical estimate, not a promise that any sportsbook will offer or honor that amount.</li>
+        <li>Past performance of any ticket, method, or user does not guarantee future results. Most bettors lose money over time. Never bet money you cannot afford to lose.</li>
+        <li>Always verify your tickets, balances, and settlement inside the sportsbook app where you placed the bet — that app's record controls, not ParlayPilot's display.</li>
+      </ul>
+      <h3>3. Your responsibility</h3>
+      <ul>
+        <li>You must be of legal gambling age in your jurisdiction (21+ in most U.S. states) and legally allowed to use the third-party platforms you connect or import from. You are responsible for complying with your local laws.</li>
+        <li>You are responsible for your own betting decisions and losses. ParlayPilot is not liable for any wager you place, decline, hold, or cash out, or for any decision made using information shown in the app.</li>
+        <li>If gambling stops being fun, call or text <b>1-800-GAMBLER</b> (U.S., free and confidential, 24/7).</li>
+      </ul>
+      <h3>4. Limitation of liability</h3>
+      <p>To the maximum extent allowed by law, ParlayPilot and its owner are not liable for any direct, indirect, incidental, or consequential damages — including lost wagers, lost profits, or missed cash-outs — arising from use of, or inability to use, the app, or from any error, delay, or outage in any feed or estimate. Where liability cannot be excluded, it is limited to the amount you paid ParlayPilot in the month before the claim arose. Some jurisdictions do not allow certain limitations, so parts of this section may not apply to you.</p>
+      <h3>5. Subscriptions</h3>
+      <p>ParlayPilot Premium is billed monthly through the app store where you downloaded the app. You can cancel anytime in your store account; cancellation stops the next renewal. Fees already paid are non-refundable except where the store's own policy or the law requires a refund.</p>
+      <h3>6. Changes and governing terms</h3>
+      <p>These terms may be updated; continued use after an update means you accept the new terms. If any part of these terms is found unenforceable, the rest still applies.</p>
+    </div>
+  </section>
+
+  <footer>
+    ParlayPilot — built by Wayne Herrington.<br>
+    ParlayPilot tracks your bets and shows live information. It does not place bets, hold funds, or guarantee outcomes. 21+. Bet only what you can afford to lose. Gambling problem? Call 1-800-GAMBLER.<br>
+    © 2026 Wayne Herrington. All rights reserved.
+  </footer>
+</div>
+
+<script>
+"use strict";
+/* ---------- ARCHIVED Nov 9, 2026 — Wayne's Sunday book, Nov 8, 2026. Moved out of the live deck; the live deck starts empty. Full record: archive/sunday-book-2026-11-08.json ---------- */
+var ARCHIVE = [
+ {name:"Courtside 6-Pick TD Parlay", plat:"Courtside", stake:4.00, payout:3138.84, fair:null,
+  note:"+50% profit boost · Receipt 410d88ac · Cash mode (real money)", guide:"Two sweat legs carry this ticket — Wright anytime TD and Milton 240+ in his first start. The Gibbs TD is the anchor.",
+  legs:[["Joe Milton III OVER 239.5 passing yards — Giants @ Eagles, 1:00 PM","FEED OPENS 1 PM"],
+         ["Jahmyr Gibbs ANYTIME TD — Lions @ Dolphins, 1:00 PM","FEED OPENS 1 PM"],
+         ["Jaylen Wright ANYTIME TD — Lions @ Dolphins, 1:00 PM","FEED OPENS 1 PM"],
+         ["Blake Corum ANYTIME TD — Rams @ Commanders, 1:00 PM","FEED OPENS 1 PM"],
+         ["Xavier Worthy ANYTIME TD — Jets @ Chiefs, 1:00 PM","FEED OPENS 1 PM"],
+         ["Quinshon Judkins ANYTIME TD — Browns @ Saints, 1:00 PM","FEED OPENS 1 PM"]]},
+ {name:"Wayne's 5-Leg — Football + Golf", plat:"Kalshi", stake:3.63, payout:110.48, fair:null,
+  note:"Alabama and Oregon legs already WON Saturday — golf legs settle Sunday", guide:"Football is home. This ticket now lives and dies on James top 5, Blair top 10, Jaeger top 20 in the WWT final round.",
+  legs:[["Alabama moneyline — Alabama @ LSU","WON ✓"],["Oregon moneyline — Oregon @ Ohio State","WON ✓"],
+         ["Ben James TOP 5 — WWT Championship, final round","FEED OPENS SUN"],["Zac Blair TOP 10 — WWT Championship, final round","FEED OPENS SUN"],
+         ["Stephan Jaeger TOP 20 — WWT Championship, final round","FEED OPENS SUN"]]},
+ {name:"Courtside 11-Pick Lions–Dolphins SGP", plat:"Courtside", stake:5.00, payout:null, fair:null,
+  note:"Same-game parlay · money-back promo — lose it, the $5 comes back", guide:"Ten legs priced 64–95% by the app and one sweat: Sieler over 0.5 sacks. Wayne's call: Sieler gets home by the end of the 1st quarter.",
+  legs:[["Gibbs OVER 14.5 receiving yards","FEED OPENS 1 PM"],["Malik Washington OVER 14.5 receiving yards","FEED OPENS 1 PM"],
+         ["Jameson Williams OVER 29.5 receiving yards","FEED OPENS 1 PM"],["Caleb Douglas OVER 2.5 receptions","FEED OPENS 1 PM"],
+         ["Sam LaPorta OVER 1.5 receptions","FEED OPENS 1 PM"],["Dante Trader Jr. OVER 1.5 solo tackles","FEED OPENS 1 PM"],
+         ["Chuck Clark OVER 2.5 solo tackles","FEED OPENS 1 PM"],["Malik Willis OVER 14.5 rushing yards","FEED OPENS 1 PM"],
+         ["Lions moneyline","FEED OPENS 1 PM"],["Gibbs ANYTIME TD","FEED OPENS 1 PM"],["Zach Sieler OVER 0.5 sacks","FEED OPENS 1 PM"]]},
+ {name:"Sunday Winners 6-Pick", plat:"Courtside", stake:10.00, payout:107.00, fair:null,
+  note:"80% profit boost applied (unboosted ≈ $60)", guide:"Six moneylines, no sweat legs. Wayne's conviction inside it: Eagles beat the Giants — Milton fits the Hurts-built offense.",
+  legs:[["Chiefs moneyline — Jets @ Chiefs, 1:00 PM","FEED OPENS 1 PM"],["Rams moneyline — Rams @ Commanders, 1:00 PM","FEED OPENS 1 PM"],
+         ["Eagles moneyline — Giants @ Eagles, 1:00 PM","FEED OPENS 1 PM"],["76ers moneyline — 76ers @ Bulls","FEED OPENS SUN"],
+         ["Timberwolves moneyline — Timberwolves @ Jazz","FEED OPENS SUN"],["Celtics moneyline — Celtics @ Bucks","FEED OPENS SUN"]]},
+ {name:"DK NFL Props 8-Pick", plat:"DraftKings", stake:10.00, payout:85.00, fair:null,
+  note:"61% boost · $85+ to win · settles across Sunday's games", guide:"All eight players healthy and starting. One flag that isn't health: JSN's QB today is Drew Lock — Darnold is out.",
+  legs:[["Puka Nacua OVER 49.5 receiving yards","FEED OPENS 1 PM"],["Jaxon Smith-Njigba OVER 49.5 receiving yards","FEED OPENS 4 PM"],
+         ["CeeDee Lamb OVER 49.5 receiving yards","FEED OPENS 1 PM"],["Drake London OVER 39.5 receiving yards","FEED OPENS 9:30 AM"],
+         ["Brock Bowers OVER 39.5 receiving yards","FEED OPENS 4 PM"],["Ja'Marr Chase OVER 7.5 catches","FEED OPENS 9:30 AM"],
+         ["Bucky Irving OVER 39.5 rushing yards","FEED OPENS 8:20 PM"],["Baker Mayfield MOST passing yards on the day","FEED OPENS SUN"]]},
+ {name:"WWT Top-10 Three", plat:"Kalshi", stake:4.80, payout:200.00, fair:null,
+  note:"World Wide Technology Championship — all three must finish top 10, no ties", guide:"Dunlap made the cut on the number at −5. Hirata (−10) and Pavon (−9) start Sunday in position; Dunlap needs a move.",
+  legs:[["Kensei Hirata TOP 10","FEED OPENS SUN"],["Matthieu Pavon TOP 10","FEED OPENS SUN"],["Nick Dunlap TOP 10","FEED OPENS SUN"]]},
+ {name:"WWT Top-20 Trio", plat:"Kalshi", stake:6.46, payout:76.95, fair:null,
+  note:"World Wide Technology Championship — all three must finish top 20", guide:"The steadiest golf ticket in the deck — three players, one round left.",
+  legs:[["Chad Ramey TOP 20","FEED OPENS SUN"],["Nick Dunlap TOP 20","FEED OPENS SUN"],["Patrick Rodgers TOP 20","FEED OPENS SUN"]]},
+ {name:"Most TDs Today — $10,000 Contest", plat:"Courtside", stake:1.00, payout:null, fair:null,
+  note:"$1 entry · winners who picked the day's top TD scorer share $10,000", guide:"Wayne's pick: Jahmyr Gibbs — the same name picked as today's most likely multi-TD player. Shared prize, so the split depends on how many picked him.",
+  legs:[["Jahmyr Gibbs — most touchdowns today","FEED OPENS 1 PM"]]}
+];
+var SEED = [];
+var KEY="parlaypilot-tickets-v1";
+function load(){ try{ var u=JSON.parse(localStorage.getItem(KEY)||"[]"); return SEED.concat(Array.isArray(u)?u:[]);}catch(e){ return SEED.slice(); } }
+function saveUser(list){ try{ localStorage.setItem(KEY, JSON.stringify(list.slice(SEED.length))); }catch(e){} }
+var tickets=load(), idx=0;
+var track=document.getElementById("track"), pips=document.getElementById("pips");
+function money(n){ return n==null? "—" : "$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function render(){
+  track.innerHTML=""; pips.innerHTML="";
+  if(tickets.length===0){
+    var empty=document.createElement("div"); empty.className="card";
+    empty.innerHTML='<div class="cardbody" style="text-align:center;padding:44px 22px"><h3>No open tickets right now</h3><div class="sub">The Nov 8 book settled and moved to the Archive below. Add a ticket or connect an account and it lands here.</div><a href="#add"><button class="btn">Add a ticket</button></a></div>';
+    track.appendChild(empty);
+  } else {
+    tickets.forEach(function(t,i){
+      var card=document.createElement("div"); card.className="card";
+      var legs=t.legs.map(function(l){
+        var cls = l[1].indexOf("WON")===0 ? "won" : (l[1].indexOf("LIVE")===0 ? "live" : "pre");
+        return '<li><span>'+l[0]+'</span><span class="feed '+cls+'">'+l[1]+'</span></li>';
+      }).join("");
+      card.innerHTML=
+        '<div class="cardtop"><div class="dots"><i></i><i></i><i></i></div><span style="color:var(--mut);font-size:12px">'+(i+1)+' / '+tickets.length+'</span><span class="plat">'+t.plat+'</span></div>'+
+        '<div class="cardbody"><h3>'+t.name+'</h3><div class="sub">'+(t.note||"")+'</div>'+
+        '<div class="money"><div class="m"><small>Stake</small><b>'+money(t.stake)+'</b></div>'+
+        '<div class="m"><small>Pays if it hits</small><b class="gold">'+money(t.payout)+'</b></div>'+
+        '<div class="m"><small>Fair cash-out now</small><b class="green">'+(t.fair==null?"Opens with the games":money(t.fair))+'</b></div></div>'+
+        '<ul class="legs">'+legs+'</ul>'+
+        (t.guide? '<div class="guide">'+t.guide+'</div>':"")+
+        '</div>';
+      track.appendChild(card);
+      var p=document.createElement("i"); if(i===idx)p.className="on"; pips.appendChild(p);
+    });
+  }
+  go(idx,true);
+  var riding=tickets.reduce(function(s,t){return s+(+t.stake||0)},0);
+  var known=tickets.reduce(function(s,t){return s+(+t.payout||0)},0);
+  document.getElementById("statRiding").textContent=money(riding);
+  document.getElementById("statTickets").textContent=tickets.length;
+  document.getElementById("statMax").textContent=money(known);
+  var settled=document.getElementById("statSettled"); if(settled) settled.textContent=ARCHIVE.length;
+  document.getElementById("deckNote").textContent = tickets.length===0 ? "Live deck is empty — settled tickets live in the Archive below." : "Ticket "+(idx+1)+" of "+tickets.length+" · Fair cash-out numbers price live once games are on — pre-game, ParlayPilot says so instead of making a number up.";
+  renderArchive();
+}
+function renderArchive(){
+  var box=document.getElementById("archiveList"); if(!box) return;
+  box.innerHTML="";
+  ARCHIVE.forEach(function(t){
+    var card=document.createElement("div"); card.className="card"; card.style.marginBottom="12px"; card.style.opacity=".92";
+    var legs=t.legs.map(function(l){ return '<li><span>'+l[0]+'</span><span class="feed pre">SETTLED</span></li>'; }).join("");
+    card.innerHTML=
+      '<div class="cardtop"><div class="dots"><i></i><i></i><i></i></div><span style="color:var(--mut);font-size:12px">Settled · Sun Nov 8, 2026</span><span class="plat">'+t.plat+'</span></div>'+
+      '<div class="cardbody"><h3>'+t.name+'</h3><div class="sub">'+(t.note||"")+'</div>'+
+      '<div class="money"><div class="m"><small>Stake</small><b>'+money(t.stake)+'</b></div>'+
+      '<div class="m"><small>Paid if it hit</small><b class="gold">'+money(t.payout)+'</b></div></div>'+
+      '<ul class="legs">'+legs+'</ul>'+
+      (t.guide? '<div class="guide">'+t.guide+'</div>':"")+
+      '</div>';
+    box.appendChild(card);
+  });
+  var note=document.getElementById("archiveNote"); if(note){ var staked=ARCHIVE.reduce(function(s,t){return s+(+t.stake||0)},0); var mx=ARCHIVE.reduce(function(s,t){return s+(+t.payout||0)},0); note.textContent=ARCHIVE.length+" settled tickets · "+money(staked)+" staked · "+money(mx)+" was the known max if it all hit. Full record: archive/sunday-book-2026-11-08.json"; }
+}
+function go(n,skip){
+  idx=Math.max(0,Math.min(tickets.length-1,n));
+  track.style.transform="translateX(-"+(idx*100)+"%)";
+  Array.prototype.forEach.call(pips.children,function(p,i){ p.className = i===idx? "on":""; });
+  if(!skip) document.getElementById("deckNote").textContent="Ticket "+(idx+1)+" of "+tickets.length+" · Fair cash-out numbers price live once games are on — pre-game, ParlayPilot says so instead of making a number up.";
+}
+document.getElementById("prev").onclick=function(){ go(idx-1); };
+document.getElementById("next").onclick=function(){ go(idx+1); };
+document.addEventListener("keydown",function(e){ if(e.key==="ArrowLeft")go(idx-1); if(e.key==="ArrowRight")go(idx+1); });
+var sx=null;
+track.addEventListener("touchstart",function(e){ sx=e.touches[0].clientX; },{passive:true});
+track.addEventListener("touchend",function(e){ if(sx==null)return; var dx=e.changedTouches[0].clientX-sx; if(dx<-40)go(idx+1); if(dx>40)go(idx-1); sx=null; },{passive:true});
+document.getElementById("addForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  var legs=document.getElementById("fLegs").value.split("\n").map(function(s){return s.trim();}).filter(Boolean).map(function(s){return [s,"FEED OPENS AT START"];});
+  tickets.push({name:document.getElementById("fName").value.trim(), plat:document.getElementById("fPlat").value.trim(),
+    stake:parseFloat(document.getElementById("fStake").value)||0, payout:parseFloat(document.getElementById("fPay").value)||null, fair:null,
+    note:"Added by you · saved on this device", guide:"", legs:legs});
+  saveUser(tickets); render(); go(tickets.length-1);
+  var deckEl=document.getElementById("deck"); if(deckEl.scrollIntoView) deckEl.scrollIntoView({behavior:"smooth"});
+  e.target.reset();
+});
+/* install */
+var deferred=null;
+window.addEventListener("beforeinstallprompt",function(e){ e.preventDefault(); deferred=e; });
+function install(){ if(deferred){ deferred.prompt(); deferred=null; } else { alert("To install ParlayPilot: open your browser menu and tap \u201CAdd to Home screen\u201D / \u201CInstall app\u201D. It lands on your phone with its own icon, full-screen, no browser bars."); } }
+document.getElementById("installBtnTop").onclick=install;
+document.getElementById("joinBtn").onclick=function(){ document.getElementById("joinNote").textContent="Subscriptions open at launch — you're on Wayne's first list. The deck above is live right now, free during launch."; };
+if("serviceWorker" in navigator){ window.addEventListener("load",function(){ navigator.serviceWorker.register("service-worker.js").catch(function(){}); }); }
+render();
+</script>
+</body>
+</html>
