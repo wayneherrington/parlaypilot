@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ParlayPilot — Every parlay. One deck. Cash out on point.</title>
-<meta name="description" content="ParlayPilot holds all your parlays from every app in one flip-through deck, with live game feeds on every leg and the exact fair cash-out number on every ticket. $1.99/month.">
+<meta name="description" content="ParlayPilot holds all your parlays from every app in one flip-through deck, with live game feeds on every leg and the exact fair cash-out number on every ticket. $1.25 one time — no subscription.">
 <meta name="theme-color" content="#07090f">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -163,7 +163,7 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:22px;color:v
     <p>ParlayPilot pulls every parlay you place — from every app — into windows you flip through like a pro. A live feed rides on every leg, and the exact fair cash-out number sits on every ticket, so you sell on point, never on panic.</p>
     <div>
       <a href="#deck"><button class="btn">See the live deck</button></a>
-      <a href="#price"><button class="btn ghost" style="margin-left:8px">$1.99/month — that's it</button></a>
+      <a href="#price"><button class="btn ghost" style="margin-left:8px">$1.25 one time — that's it</button></a>
     </div>
     <div class="stats">
       <div class="stat"><b class="gold" id="statRiding">$0.00</b><small>Riding today</small></div>
@@ -233,8 +233,8 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:22px;color:v
   <section id="price">
     <h2>One price. No games.</h2>
     <div class="price">
-      <b>$1.99</b><span style="font-size:20px;color:var(--mut)"> / month</span>
-      <p>Every window, every live feed, every fair cash-out number.<br>Cheaper than one bad panic sell. Cancel anytime.</p>
+      <b>$1.25</b><span style="font-size:20px;color:var(--mut)"> one time</span>
+      <p>Every window, every live feed, every fair cash-out number.<br>Cheaper than one bad panic sell. Pay once — no subscription, nothing renews.</p>
       <button class="btn" id="joinBtn">Join ParlayPilot</button>
       <p id="joinNote" style="margin-top:12px;font-size:13px"></p>
     </div>
@@ -264,9 +264,9 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:22px;color:v
         <li>If gambling stops being fun, call or text <b>1-800-GAMBLER</b> (U.S., free and confidential, 24/7).</li>
       </ul>
       <h3>4. Limitation of liability</h3>
-      <p>To the maximum extent allowed by law, ParlayPilot and its owner are not liable for any direct, indirect, incidental, or consequential damages — including lost wagers, lost profits, or missed cash-outs — arising from use of, or inability to use, the app, or from any error, delay, or outage in any feed or estimate. Where liability cannot be excluded, it is limited to the amount you paid ParlayPilot in the month before the claim arose. Some jurisdictions do not allow certain limitations, so parts of this section may not apply to you.</p>
-      <h3>5. Subscriptions</h3>
-      <p>ParlayPilot Premium is billed monthly through the app store where you downloaded the app. You can cancel anytime in your store account; cancellation stops the next renewal. Fees already paid are non-refundable except where the store's own policy or the law requires a refund.</p>
+      <p>To the maximum extent allowed by law, ParlayPilot and its owner are not liable for any direct, indirect, incidental, or consequential damages — including lost wagers, lost profits, or missed cash-outs — arising from use of, or inability to use, the app, or from any error, delay, or outage in any feed or estimate. Where liability cannot be excluded, it is limited to the amount you paid for ParlayPilot. Some jurisdictions do not allow certain limitations, so parts of this section may not apply to you.</p>
+      <h3>5. Payment</h3>
+      <p>ParlayPilot is a one-time purchase billed through the app store where you downloaded the app. There is no subscription and nothing renews. Refunds follow the store's own policy or the law.</p>
       <h3>6. Changes and governing terms</h3>
       <p>These terms may be updated; continued use after an update means you accept the new terms. If any part of these terms is found unenforceable, the rest still applies.</p>
     </div>
@@ -389,7 +389,7 @@ function go(n,skip){
   idx=Math.max(0,Math.min(tickets.length-1,n));
   track.style.transform="translateX(-"+(idx*100)+"%)";
   Array.prototype.forEach.call(pips.children,function(p,i){ p.className = i===idx? "on":""; });
-  if(!skip) document.getElementById("deckNote").textContent="Ticket "+(idx+1)+" of "+tickets.length+" · Fair cash-out numbers price live once games are on — pre-game, ParlayPilot says so instead of making a number up.";
+  if(!skip && tickets.length>0) document.getElementById("deckNote").textContent="Ticket "+(idx+1)+" of "+tickets.length+" · Fair cash-out numbers price live once games are on — pre-game, ParlayPilot says so instead of making a number up.";
 }
 document.getElementById("prev").onclick=function(){ go(idx-1); };
 document.getElementById("next").onclick=function(){ go(idx+1); };
@@ -412,7 +412,7 @@ var deferred=null;
 window.addEventListener("beforeinstallprompt",function(e){ e.preventDefault(); deferred=e; });
 function install(){ if(deferred){ deferred.prompt(); deferred=null; } else { alert("To install ParlayPilot: open your browser menu and tap \u201CAdd to Home screen\u201D / \u201CInstall app\u201D. It lands on your phone with its own icon, full-screen, no browser bars."); } }
 document.getElementById("installBtnTop").onclick=install;
-document.getElementById("joinBtn").onclick=function(){ document.getElementById("joinNote").textContent="Subscriptions open at launch — you're on Wayne's first list. The deck above is live right now, free during launch."; };
+document.getElementById("joinBtn").onclick=function(){ document.getElementById("joinNote").textContent="ParlayPilot launches on Google Play at $1.25 — one time, no subscription. The deck above is live right now, free during launch."; };
 if("serviceWorker" in navigator){ window.addEventListener("load",function(){ navigator.serviceWorker.register("service-worker.js").catch(function(){}); }); }
 render();
 </script>
