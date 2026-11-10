@@ -18,10 +18,10 @@ By using ParlayPilot, you agree to these terms.
 - If gambling stops being fun, call or text **1-800-GAMBLER** (U.S., free and confidential, 24/7).
 
 ## 4. Limitation of liability
-To the maximum extent allowed by law, ParlayPilot and its owner are not liable for any direct, indirect, incidental, or consequential damages — including lost wagers, lost profits, or missed cash-outs — arising from use of, or inability to use, the app, or from any error, delay, or outage in any feed or estimate. Where liability cannot be excluded, it is limited to the amount you paid ParlayPilot in the month before the claim arose. Some jurisdictions do not allow certain limitations, so parts of this section may not apply to you.
+To the maximum extent allowed by law, ParlayPilot and its owner are not liable for any direct, indirect, incidental, or consequential damages — including lost wagers, lost profits, or missed cash-outs — arising from use of, or inability to use, the app, or from any error, delay, or outage in any feed or estimate. Where liability cannot be excluded, it is limited to the amount you paid for ParlayPilot. Some jurisdictions do not allow certain limitations, so parts of this section may not apply to you.
 
-## 5. Subscriptions
-ParlayPilot Premium is billed monthly through the app store where you downloaded the app. You can cancel anytime in your store account; cancellation stops the next renewal. Fees already paid are non-refundable except where the store's own policy or the law requires a refund.
+## 5. Payment
+ParlayPilot is a one-time purchase billed through the app store where you downloaded the app. There is no subscription and nothing renews. Refunds follow the store's own policy or the law.
 
 ## 6. Changes and governing terms
 These terms may be updated; continued use after an update means you accept the new terms. If any part of these terms is found unenforceable, the rest still applies.
