@@ -1,0 +1,273 @@
+{
+  "app": "ParlayPilot",
+  "archived": "2026-11-09",
+  "book": "Sunday book, Nov 8, 2026",
+  "note": "Settled tickets moved out of the live deck Nov 9, 2026. Live deck starts empty; this file is the record.",
+  "totals": {
+    "tickets": 8,
+    "staked": 44.89,
+    "knownMax": 3718.27
+  },
+  "tickets": [
+    {
+      "name": "Courtside 6-Pick TD Parlay",
+      "plat": "Courtside",
+      "stake": 4,
+      "payout": 3138.84,
+      "fair": null,
+      "note": "+50% profit boost · Receipt 410d88ac · Cash mode (real money)",
+      "guide": "Two sweat legs carry this ticket — Wright anytime TD and Milton 240+ in his first start. The Gibbs TD is the anchor.",
+      "legs": [
+        [
+          "Joe Milton III OVER 239.5 passing yards — Giants @ Eagles, 1:00 PM",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Jahmyr Gibbs ANYTIME TD — Lions @ Dolphins, 1:00 PM",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Jaylen Wright ANYTIME TD — Lions @ Dolphins, 1:00 PM",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Blake Corum ANYTIME TD — Rams @ Commanders, 1:00 PM",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Xavier Worthy ANYTIME TD — Jets @ Chiefs, 1:00 PM",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Quinshon Judkins ANYTIME TD — Browns @ Saints, 1:00 PM",
+          "FEED OPENS 1 PM"
+        ]
+      ]
+    },
+    {
+      "name": "Wayne's 5-Leg — Football + Golf",
+      "plat": "Kalshi",
+      "stake": 3.63,
+      "payout": 110.48,
+      "fair": null,
+      "note": "Alabama and Oregon legs already WON Saturday — golf legs settle Sunday",
+      "guide": "Football is home. This ticket now lives and dies on James top 5, Blair top 10, Jaeger top 20 in the WWT final round.",
+      "legs": [
+        [
+          "Alabama moneyline — Alabama @ LSU",
+          "WON ✓"
+        ],
+        [
+          "Oregon moneyline — Oregon @ Ohio State",
+          "WON ✓"
+        ],
+        [
+          "Ben James TOP 5 — WWT Championship, final round",
+          "FEED OPENS SUN"
+        ],
+        [
+          "Zac Blair TOP 10 — WWT Championship, final round",
+          "FEED OPENS SUN"
+        ],
+        [
+          "Stephan Jaeger TOP 20 — WWT Championship, final round",
+          "FEED OPENS SUN"
+        ]
+      ]
+    },
+    {
+      "name": "Courtside 11-Pick Lions–Dolphins SGP",
+      "plat": "Courtside",
+      "stake": 5,
+      "payout": null,
+      "fair": null,
+      "note": "Same-game parlay · money-back promo — lose it, the $5 comes back",
+      "guide": "Ten legs priced 64–95% by the app and one sweat: Sieler over 0.5 sacks. Wayne's call: Sieler gets home by the end of the 1st quarter.",
+      "legs": [
+        [
+          "Gibbs OVER 14.5 receiving yards",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Malik Washington OVER 14.5 receiving yards",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Jameson Williams OVER 29.5 receiving yards",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Caleb Douglas OVER 2.5 receptions",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Sam LaPorta OVER 1.5 receptions",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Dante Trader Jr. OVER 1.5 solo tackles",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Chuck Clark OVER 2.5 solo tackles",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Malik Willis OVER 14.5 rushing yards",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Lions moneyline",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Gibbs ANYTIME TD",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Zach Sieler OVER 0.5 sacks",
+          "FEED OPENS 1 PM"
+        ]
+      ]
+    },
+    {
+      "name": "Sunday Winners 6-Pick",
+      "plat": "Courtside",
+      "stake": 10,
+      "payout": 107,
+      "fair": null,
+      "note": "80% profit boost applied (unboosted ≈ $60)",
+      "guide": "Six moneylines, no sweat legs. Wayne's conviction inside it: Eagles beat the Giants — Milton fits the Hurts-built offense.",
+      "legs": [
+        [
+          "Chiefs moneyline — Jets @ Chiefs, 1:00 PM",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Rams moneyline — Rams @ Commanders, 1:00 PM",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Eagles moneyline — Giants @ Eagles, 1:00 PM",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "76ers moneyline — 76ers @ Bulls",
+          "FEED OPENS SUN"
+        ],
+        [
+          "Timberwolves moneyline — Timberwolves @ Jazz",
+          "FEED OPENS SUN"
+        ],
+        [
+          "Celtics moneyline — Celtics @ Bucks",
+          "FEED OPENS SUN"
+        ]
+      ]
+    },
+    {
+      "name": "DK NFL Props 8-Pick",
+      "plat": "DraftKings",
+      "stake": 10,
+      "payout": 85,
+      "fair": null,
+      "note": "61% boost · $85+ to win · settles across Sunday's games",
+      "guide": "All eight players healthy and starting. One flag that isn't health: JSN's QB today is Drew Lock — Darnold is out.",
+      "legs": [
+        [
+          "Puka Nacua OVER 49.5 receiving yards",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Jaxon Smith-Njigba OVER 49.5 receiving yards",
+          "FEED OPENS 4 PM"
+        ],
+        [
+          "CeeDee Lamb OVER 49.5 receiving yards",
+          "FEED OPENS 1 PM"
+        ],
+        [
+          "Drake London OVER 39.5 receiving yards",
+          "FEED OPENS 9:30 AM"
+        ],
+        [
+          "Brock Bowers OVER 39.5 receiving yards",
+          "FEED OPENS 4 PM"
+        ],
+        [
+          "Ja'Marr Chase OVER 7.5 catches",
+          "FEED OPENS 9:30 AM"
+        ],
+        [
+          "Bucky Irving OVER 39.5 rushing yards",
+          "FEED OPENS 8:20 PM"
+        ],
+        [
+          "Baker Mayfield MOST passing yards on the day",
+          "FEED OPENS SUN"
+        ]
+      ]
+    },
+    {
+      "name": "WWT Top-10 Three",
+      "plat": "Kalshi",
+      "stake": 4.8,
+      "payout": 200,
+      "fair": null,
+      "note": "World Wide Technology Championship — all three must finish top 10, no ties",
+      "guide": "Dunlap made the cut on the number at −5. Hirata (−10) and Pavon (−9) start Sunday in position; Dunlap needs a move.",
+      "legs": [
+        [
+          "Kensei Hirata TOP 10",
+          "FEED OPENS SUN"
+        ],
+        [
+          "Matthieu Pavon TOP 10",
+          "FEED OPENS SUN"
+        ],
+        [
+          "Nick Dunlap TOP 10",
+          "FEED OPENS SUN"
+        ]
+      ]
+    },
+    {
+      "name": "WWT Top-20 Trio",
+      "plat": "Kalshi",
+      "stake": 6.46,
+      "payout": 76.95,
+      "fair": null,
+      "note": "World Wide Technology Championship — all three must finish top 20",
+      "guide": "The steadiest golf ticket in the deck — three players, one round left.",
+      "legs": [
+        [
+          "Chad Ramey TOP 20",
+          "FEED OPENS SUN"
+        ],
+        [
+          "Nick Dunlap TOP 20",
+          "FEED OPENS SUN"
+        ],
+        [
+          "Patrick Rodgers TOP 20",
+          "FEED OPENS SUN"
+        ]
+      ]
+    },
+    {
+      "name": "Most TDs Today — $10,000 Contest",
+      "plat": "Courtside",
+      "stake": 1,
+      "payout": null,
+      "fair": null,
+      "note": "$1 entry · winners who picked the day's top TD scorer share $10,000",
+      "guide": "Wayne's pick: Jahmyr Gibbs — the same name picked as today's most likely multi-TD player. Shared prize, so the split depends on how many picked him.",
+      "legs": [
+        [
+          "Jahmyr Gibbs — most touchdowns today",
+          "FEED OPENS 1 PM"
+        ]
+      ]
+    }
+  ]
+}
